@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>database</key>
+			<string>sakila</string>
+			<key>host</key>
+			<string>127.0.0.1</string>
+			<key>kcid</key>
+			<string>226448167852477326</string>
+			<key>name</key>
+			<string>localhost</string>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPTCPIPConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>root</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>utf8</string>
+			<key>contentFilterV2</key>
+			<dict>
+				<key>children</key>
+				<array/>
+				<key>filterClass</key>
+				<string>groupNode</string>
+				<key>isConjunction</key>
+				<true/>
+			</dict>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0
+			b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRk
+			YXRhgAGoCwwXGBkaHiVVJG51bGzTDQ4PEBMWV05TLmtleXNaTlMu
+			b2JqZWN0c1YkY2xhc3OiERKAAoADohQVgASABYAHVHR5cGVUcm93
+			c18QHVNlbGVjdGlvbkRldGFpbFR5cGVOU0luZGV4U2V00hsPHB1c
+			TlNSYW5nZUNvdW50EACABtIfICEiWiRjbGFzc25hbWVYJGNsYXNz
+			ZXNaTlNJbmRleFNldKIjJFpOU0luZGV4U2V0WE5TT2JqZWN00h8g
+			JidcTlNEaWN0aW9uYXJ5oiYkAAgAEQAaACQAKQAyADcASQBMAFEA
+			UwBcAGIAaQBxAHwAgwCGAIgAigCNAI8AkQCTAJgAnQC9AMIAzwDR
+			ANMA2ADjAOwA9wD6AQUBDgETASAAAAAAAAACAQAAAAAAAAAoAAAA
+			AAAAAAAAAAAAAAABIw==
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{0, 0}, {695, 477}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string>-- 1 How many distinct (different) actors' last names are there?
+select distinct count(`last_name`)
+from actor;
+
+-- 2 In how many different languages where the films originally produced? (Use the column language_id from the film table)
+select distinct count(`language_id`)
+from film;
+
+-- 3 How many movies were released with "PG-13" rating?
+select count(film_id)
+from film
+where rating='PG-13';
+
+-- 4 Get 10 the longest movies from 2006.
+select *
+from film
+where release_year=2006
+order by length desc
+limit 10; 
+
+-- 5 How many days has been the company operating (check DATEDIFF() function)?
+-- select substring_index(rental_date, ' ', 1)
+SELECT DATEDIFF(max(rental_date),min(rental_date)) AS DateDiff
+from rental;
+
+-- 6 Show rental info with additional columns month and weekday. Get 20.
+select *, month(substring_index(rental_date, ' ', 1)) as month, weekday(rental_date) as weekday
+from rental
+limit 20;
+
+-- 7 Add an additional column day_type with values 'weekend' and 'workday' depending on the rental day of the week. Check the CASE function.
+select *,
+	case
+		when weekday(substring_index(rental_date, ' ', 1)) &lt;5 then "workday"
+		when weekday(substring_index(rental_date, ' ', 1)) &gt;5 then "weekend"
+	end as day_type
+from rental;
+
+-- 8 How many rentals were in the last month of activity?
+select count(rental_id), month(substring_index(rental_date, ' ', 1)) as month, year(substring_index(rental_date, ' ', 1)) as year
+from rental
+group by month(substring_index(rental_date, ' ', 1)), year(substring_index(rental_date, ' ', 1))
+order by year(substring_index(rental_date, ' ', 1)) DESC, month(substring_index(rental_date, ' ', 1)) DESC
+limit 1;</string>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>214</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string>-- 8 How many rentals were in the last month of activity?
+select count(rental_id), month(substring_index(rental_date, ' ', 1)) as month, year(substring_index(rental_date, ' ', 1)) as year
+from rental
+group by month(substring_index(rental_date, ' ', 1)), year(substring_index(rental_date, ' ', 1))
+order by year(substring_index(rental_date, ' ', 1)) DESC, month(substring_index(rental_date, ' ', 1)) DESC
+limit 1</string>
+		<string>-- 8 How many rentals were in the last month of activity?
+select count(rental_id), month(substring_index(rental_date, ' ', 1)) as month, year(substring_index(rental_date, ' ', 1)) as year
+from rental
+group by month(substring_index(rental_date, ' ', 1)), year(substring_index(rental_date, ' ', 1))</string>
+		<string>-- 8 How many rentals were in the last month of activity?
+select count(rental_id), month(substring_index(rental_date, ' ', 1)) as month, year(substring_index(rental_date, ' ', 1)) as year
+from rental
+order by rental_date desc</string>
+		<string>-- 8 How many rentals were in the last month of activity?
+select rental_id, month(substring_index(rental_date, ' ', 1)) as month, year(substring_index(rental_date, ' ', 1)) as year
+from rental
+order by rental_date desc</string>
+		<string>-- 8 How many rentals were in the last month of activity?
+select *
+from rental
+order by rental_date desc</string>
+		<string>-- 8 How many rentals were in the last month of activity?
+select *
+from rentals
+order by rental_date desc</string>
+		<string>-- 7 Add an additional column day_type with values 'weekend' and 'workday' depending on the rental day of the week. Check the CASE function.
+select *,
+	case
+		when weekday(substring_index(rental_date, ' ', 1)) &lt;5 then "workday"
+		when weekday(substring_index(rental_date, ' ', 1)) &gt;5 then "weekend"
+	end as day_type
+from rental</string>
+		<string>-- 7 Add an additional column day_type with values 'weekend' and 'workday' depending on the rental day of the week. Check the CASE function.
+select *, "day_type" =
+	case
+		when weekday(substring_index(rental_date, ' ', 1)) &lt;5 then "workday"
+		when weekday(substring_index(rental_date, ' ', 1)) &gt;5 then "weekend"
+	end
+from rental</string>
+		<string>-- 7 Add an additional column day_type with values 'weekend' and 'workday' depending on the rental day of the week. Check the CASE function.
+select *, "day_type" =
+	case
+		when weekday(rental_date) &lt;5 then "workday"
+		when weekday(rental_date) &gt;5 then "weekend"
+	end
+from rental</string>
+		<string>-- 6 Show rental info with additional columns month and weekday. Get 20.
+select *, month(substring_index(rental_date, ' ', 1)) as month, weekday(rental_date) as weekday
+from rental
+limit 20</string>
+		<string>-- 6 Show rental info with additional columns month and weekday. Get 20.
+select *, substring_index(rental_date, ' ', 1) as month, weekday(rental_date) as weekday
+from rental
+limit 20</string>
+		<string>-- 7 Add an additional column day_type with values 'weekend' and 'workday' depending on the rental day of the week. Check the CASE function.
+select *, "day_type" =
+case
+	when weekday(rental_date) &lt;5 then "workday"
+	when weekday(rental_date) &gt;5 then "weekend"
+end
+from rental</string>
+		<string>weekend</string>
+		<string>-- 7 Add an additional column day_type with values 'weekend' and 'workday' depending on the rental day of the week. Check the CASE function.
+select *, "day_type" =
+case
+	when weekday(rental_date) &lt;5 then workday
+	when weekday(rental_date) &gt;5 then weekend
+end
+from rental</string>
+		<string>-- 7 Add an additional column day_type with values 'weekend' and 'workday' depending on the rental day of the week. Check the CASE function.
+select *
+from rental</string>
+		<string>-- 6 Show rental info with additional columns month and weekday. Get 20.
+select *, substring_index(rental_date, ' ', 1) as month
+from rental
+limit 20</string>
+		<string>-- 6 Show rental info with additional columns month and weekday. Get 20.
+select *
+from rental
+limit 20</string>
+		<string>-- 6 Show rental info with additional columns month and weekday. Get 20.
+select *
+from rental</string>
+		<string>-- 5 How many days has been the company operating (check DATEDIFF() function)?
+-- select substring_index(rental_date, ' ', 1)
+
+SELECT DATEDIFF(max(rental_date),min(rental_date)) AS DateDiff
+from rental</string>
+		<string>-- 5 How many days has been the company operating (check DATEDIFF() function)?
+-- select substring_index(rental_date, ' ', 1)
+
+SELECT DATEDIFF(min(rental_date),max(rental_date)) AS DateDiff
+from rental</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>8.0.23</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>
